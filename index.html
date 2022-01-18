@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="./style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+</head>
+<body>
+    <div id="container">
+        <div id="box">
+        </div>
+    </div>
+</body>
+<script>
+    window.onload=init();
+
+    function init(){
+        
+        setInterval(function(){displayDate()},1000);
+     
+    }
+    function displayDate(){
+        let today=new Date();
+        let year=today.getFullYear();//gives full year
+        let month=today.getMonth();//gives the day of month
+        let day=today.getDate();//return week day from 0-6
+        let hour=today.getHours();//return the hours
+        let minutes=today.getMinutes();//gives the minutes
+        let seconds=today.getSeconds();//return seconds
+        let indicator='AM';
+        let tag=document.getElementById('box');
+
+        let monthArr=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+     
+        month=monthArr[month];
+        if(hour>12){
+            indicator='PM';
+            hour=hour-12;
+        }
+        hour=checkDigit(hour);
+        seconds=checkDigit(seconds);
+        minutes=checkDigit(minutes);
+        day=checkDigit(day);
+
+        tag.innerHTML=`<span>${hour}</span>:<span>${minutes}</span>:<span>${seconds}</span>
+                       <span id="small">${indicator}</span>
+                      <div id='date'>
+                       <span>${day}</span>
+                       <span>${month}</span>
+                       <span>${year}</span>
+                      </div>`;
+    }
+
+    function checkDigit(i){
+        if(i<10){
+             return'0'+i;
+    }else{
+             return i;
+    }
+}
+
+</script>
+</html>
